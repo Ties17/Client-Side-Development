@@ -8,7 +8,7 @@ import android.os.Bundle;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MuralListener {
 
     private RecyclerView recyclerView;
     private MuralAdapter adapter;
@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        factory = new MuralsFactory();
+        factory = new MuralsFactory(getApplicationContext(), this);
         dataset = new ArrayList<>();
         adapter = new MuralAdapter(dataset);
 
@@ -36,6 +36,17 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
+    }
+
+    @Override
+    public void OnMuralAvailable(Mural mural) {
+        this.dataset.add(mural);
+        adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void OnMuralError(Error e) {
 
     }
 }

@@ -44,6 +44,7 @@ public class MuralsFactory {
 
             } catch (JSONException e) {
                 e.printStackTrace();
+                muralListener.OnMuralError(new Error());
             }
         }
     }

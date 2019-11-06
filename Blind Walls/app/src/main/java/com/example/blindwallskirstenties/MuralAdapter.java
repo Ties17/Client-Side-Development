@@ -39,7 +39,7 @@ public class MuralAdapter extends RecyclerView.Adapter<MuralAdapter.ImageViewHol
     public void onBindViewHolder(@NonNull ImageViewHolder viewHolder, int i)
     {
         viewHolder.title.setText(dataset.get(i).getTitle());
-        Picasso.get().load(dataset.get(i).getImages()[2]).into(viewHolder.picture);
+        Picasso.get().load(dataset.get(i).getImages().get(2)).into(viewHolder.picture);
     }
 
     @Override
