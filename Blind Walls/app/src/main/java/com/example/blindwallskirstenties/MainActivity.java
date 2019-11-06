@@ -32,6 +32,8 @@ public class MainActivity extends AppCompatActivity implements MuralListener {
         dataset = new ArrayList<>();
         adapter = new MuralAdapter(dataset);
 
+        factory.fillDataSet();
+
         recyclerView.setAdapter(adapter);
 
 
