@@ -1,5 +1,7 @@
 package com.example.blindwallskirstenties;
 
+import android.app.VoiceInteractor;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,9 +11,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
-public class MuralAdapter extends RecyclerView.Adapter
+public class MuralAdapter extends RecyclerView.Adapter<MuralAdapter.ImageViewHolder>
 {
 
     private ArrayList<Mural> dataset;
@@ -23,7 +27,7 @@ public class MuralAdapter extends RecyclerView.Adapter
 
     @NonNull
     @Override
-    public ImageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
+    public ImageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i)
     {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_main_recycler, parent, false);
         ImageViewHolder imageViewHolder = new ImageViewHolder(view);
@@ -32,9 +36,10 @@ public class MuralAdapter extends RecyclerView.Adapter
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position)
+    public void onBindViewHolder(@NonNull ImageViewHolder viewHolder, int i)
     {
-
+        viewHolder.title.setText(dataset.get(i).getTitle());
+        Picasso.get().load(dataset.get(i).getImages()[2]).into(viewHolder.picture);
     }
 
     @Override
@@ -62,10 +67,10 @@ public class MuralAdapter extends RecyclerView.Adapter
                 @Override
                 public void onClick(View v)
                 {
-//                    Intent intent = new Intent(v.getContext(), MuralDetailActivity.class);
-//                    Mural m = dataset.get(ImageViewHolder.super.getAdapterPosition());
-//                    intent.putExtra("Mural", m);
-//                    v.getContext().startActivity(intent);
+                    Intent intent = new Intent(v.getContext(), DetailActivity.class);
+                    Mural m = dataset.get(ImageViewHolder.super.getAdapterPosition());
+                    intent.putExtra("Mural", m);
+                    v.getContext().startActivity(intent);
                 }
             });
 
