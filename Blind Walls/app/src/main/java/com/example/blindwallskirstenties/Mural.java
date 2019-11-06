@@ -1,6 +1,7 @@
 package com.example.blindwallskirstenties;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 class Mural implements Serializable {
 
@@ -8,12 +9,12 @@ class Mural implements Serializable {
     private String title;
     private String artist;
     private String description;
-    private String[] images;
+    private ArrayList<String> images;
     private int year;
     private String address;
     private double rating;
 
-    public Mural(int id, String title, String artist, String description, String[] images, int year, String address, double rating) {
+    public Mural(int id, String title, String artist, String description, ArrayList<String> images, int year, String address, double rating) {
         this.id = id;
         this.title = title;
         this.artist = artist;
@@ -59,11 +60,11 @@ class Mural implements Serializable {
         this.description = description;
     }
 
-    public String[] getImages() {
+    public ArrayList<String> getImages() {
         return images;
     }
 
-    public void setImages(String[] images) {
+    public void setImages(ArrayList<String> images) {
         this.images = images;
     }
 
