@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class MuralAdapter extends RecyclerView.Adapter<MuralAdapter.ImageViewHolder>
 {
@@ -39,7 +40,8 @@ public class MuralAdapter extends RecyclerView.Adapter<MuralAdapter.ImageViewHol
     public void onBindViewHolder(@NonNull ImageViewHolder viewHolder, int i)
     {
         viewHolder.title.setText(dataset.get(i).getTitle());
-        Picasso.get().load(dataset.get(i).getImages().get(2)).into(viewHolder.picture);
+        String path = "https://api.blindwalls.gallery/" + dataset.get(i).getImages().get(new Random().nextInt(dataset.get(i).getImages().size()));
+        Picasso.get().load(path).into(viewHolder.picture);
     }
 
     @Override

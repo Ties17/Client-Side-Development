@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements MuralListener {
         dataset = new ArrayList<>();
         adapter = new MuralAdapter(dataset);
 
-        factory.fillDataSet();
+        factory.fillDataSet(this);
 
         recyclerView.setAdapter(adapter);
 

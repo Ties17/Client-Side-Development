@@ -21,8 +21,8 @@ public class MuralsFactory {
         this.muralListener = muralListener;
     }
 
-    public void fillDataSet(){
-        JSONArray wallsArray = parseJson(ReadJSONFromFile(context));
+    public void fillDataSet(Activity activity){
+        JSONArray wallsArray = parseJson(ReadJSONFromFile(activity));
 
         for(int i = 0; i < wallsArray.length(); i++){
             try {
@@ -61,13 +61,13 @@ public class MuralsFactory {
         return json;
     }
 
-    public static String ReadJSONFromFile(Context context){
+    public static String ReadJSONFromFile(Activity activity){
         String json;
         try{
-            InputStream is = context.getAssets().open("Walls.json");
+            InputStream is = activity.getResources().openRawResource(R.raw.walls);
             byte[] buffer = new byte[is.available()];
             is.read(buffer);
-            is.close();;
+            is.close();
             json = new String(buffer, "UTF-8");
         } catch (IOException e) {
             e.printStackTrace();
