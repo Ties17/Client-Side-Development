@@ -55,12 +55,20 @@ public class MuralsFactory {
                                     images.add(imagesArray.getJSONObject(j).getString("url"));
                                 int year = response.getInt("year");
                                 String address = response.getString("address");
-                                double rating = response.getDouble("rating");
+                                double rating;
+                                if (!response.isNull("rating")){
+                                     rating = response.getDouble("rating");
+                                } else {
+                                    rating = 0;
+                                }
 
                                 Mural mural = new Mural(id, title, artist, description, images, year, address, rating);
+
                                 muralListener.OnMuralAvailable(mural);
                             }
-                        } catch (Exception e) {
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Log.e("ERROR", "Message: " + e.getMessage());
                             muralListener.OnMuralError(new Error());
                         }
                     }
