@@ -2,6 +2,15 @@ package com.example.blindwallskirstenties;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -15,11 +24,59 @@ public class MuralsFactory {
 
     private Context context;
     private MuralListener muralListener;
+    private final String APIUrl = "https://api.blindwalls.gallery/apiv2/murals";
+    private RequestQueue queue;
 
     public MuralsFactory(Context context, MuralListener muralListener) {
         this.context = context;
         this.muralListener = muralListener;
+        queue = Volley.newRequestQueue(context);
     }
+
+    public void fillDataSetVolley(){
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
+                Request.Method.GET,
+                APIUrl,
+                null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray responses) {
+                        Log.d("LENGTH", "length = " + responses.length());
+                        try {
+                            for (int i = 0; i < responses.length(); i++) {
+                                JSONObject response = responses.getJSONObject(i);
+                                int id = response.getInt("id");
+                                String title = response.getJSONObject("title").getString("nl");
+                                String artist = response.getString("author");
+                                String description = response.getJSONObject("description").getString("nl");
+                                ArrayList<String> images = new ArrayList<>();
+                                JSONArray imagesArray = response.getJSONArray("images");
+                                for (int j = 0; j < imagesArray.length(); j++)
+                                    images.add(imagesArray.getJSONObject(j).getString("url"));
+                                int year = response.getInt("year");
+                                String address = response.getString("address");
+                                double rating = response.getDouble("rating");
+
+                                Mural mural = new Mural(id, title, artist, description, images, year, address, rating);
+                                muralListener.OnMuralAvailable(mural);
+                            }
+                        } catch (Exception e) {
+                            muralListener.OnMuralError(new Error());
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        muralListener.OnMuralError(new Error());
+                    }
+                }
+        );
+
+        queue.add(jsonArrayRequest);
+    }
+
+
 
     public void fillDataSet(Activity activity){
         JSONArray wallsArray = parseJson(ReadJSONFromFile(activity));
