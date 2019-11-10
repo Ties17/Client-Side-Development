@@ -25,6 +25,7 @@
         android:textAlignment="center"
         android:textAllCaps="true"
         android:textColor="@android:color/white"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/MuralImage"
         app:layout_constraintEnd_toEndOf="@+id/MuralImage"
         app:layout_constraintStart_toStartOf="@+id/MuralImage"

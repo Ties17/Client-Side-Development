@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/constraintLayout"
+    android:id="@+id/ViewConstraint"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:scrollbars="vertical"
@@ -39,33 +39,38 @@
         style="@style/Widget.AppCompat.RatingBar.Small"
         android:layout_width="110dp"
         android:layout_height="22dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:numStars="5"
         android:rating="5"
+        app:layout_constraintBottom_toBottomOf="@+id/TitleText"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
         app:layout_constraintTop_toTopOf="@+id/TitleText" />
 
     <TextView
         android:id="@+id/TitleText"
-        android:layout_width="0dp"
-        android:layout_height="62dp"
-        android:layout_marginTop="20dp"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
+        android:layout_marginBottom="32dp"
         android:text="TextView"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textSize="20sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/guideline4"
         app:layout_constraintEnd_toStartOf="@+id/ratingBar"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline2"
-        app:layout_constraintTop_toBottomOf="@+id/ScrollView" />
+        app:layout_constraintTop_toBottomOf="@+id/ScrollView"
+        app:layout_constraintVertical_bias="0.143" />
 
     <TextView
         android:id="@+id/ArtistText"
         android:layout_width="0dp"
-        android:layout_height="31dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:text="TextView"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
         app:layout_constraintStart_toStartOf="@+id/TitleText"
         app:layout_constraintTop_toBottomOf="@+id/TitleText" />
@@ -94,74 +99,90 @@
     <TextView
         android:id="@+id/AddressText"
         android:layout_width="0dp"
-        android:layout_height="34dp"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:text="TextView"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline2"
         app:layout_constraintTop_toBottomOf="@+id/ArtistText" />
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/DescriptionCardview"
+        android:id="@+id/CardView"
         android:layout_width="0dp"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
+        app:layout_constraintHorizontal_bias="0.75"
         app:layout_constraintStart_toStartOf="@+id/guideline2"
         app:layout_constraintTop_toTopOf="@+id/guideline4">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/expandableView"
-            android:layout_width="match_parent"
-            android:visibility="gone"
-            android:layout_height="157dp">
-
-            <TextView
-                android:id="@+id/DescriptionText"
-                android:layout_width="324dp"
-                android:layout_height="72dp"
-                android:layout_marginTop="69dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="16dp"
-                android:text="TextView"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/description"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <Button
+                android:id="@+id/arrowBttn"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginEnd="24dp"
+                android:background="@drawable/ic_keyboard_arrow_down_black_24dp"
+                app:layout_constraintBottom_toBottomOf="@+id/Description"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/Description"
+                app:layout_constraintVertical_bias="0.0" />
+
             <TextView
-                android:id="@+id/textView7"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
+                android:id="@+id/Description"
+                android:layout_width="138dp"
+                android:layout_height="35dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="16dp"
-                android:text="DESCRIPTIE"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/ArrowBttn"
+                android:layout_marginTop="8dp"
+                android:text="Description"
+                android:textAlignment="center"
+                android:textSize="18sp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <Button
-                android:id="@+id/ArrowBttn"
-                android:layout_width="50dp"
-                android:layout_height="0dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="8dp"
-                android:background="@drawable/ic_keyboard_arrow_down_black_24dp"
-                app:layout_constraintBottom_toBottomOf="parent"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/expandableView"
+                android:layout_width="0dp"
+                android:layout_height="200dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:scrollIndicators="right"
+                android:scrollbars="vertical"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/Description">
+
+                <TextView
+                    android:id="@+id/DescriptionText"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:scrollbars="vertical"
+                    android:text="TextView"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.9" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

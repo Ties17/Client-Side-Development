@@ -5,11 +5,13 @@ import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.transition.AutoTransition;
 import android.transition.TransitionManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -28,6 +30,7 @@ public class DetailActivity extends AppCompatActivity
     private TextView artist;
     private TextView address;
     Button arrowBttn;
+    ConstraintLayout constraintLayout;
     ConstraintLayout expandableView;
     CardView cardview;
     private TextView description;
@@ -53,18 +56,26 @@ public class DetailActivity extends AppCompatActivity
             gallery.addView(view);
         }
 
+        constraintLayout = findViewById(R.id.ViewConstraint);
+
+
+
         title = findViewById(R.id.TitleText);
         title.setText(mural.getTitle() + " (" + mural.getYear() + ")");
         artist = findViewById(R.id.ArtistText);
         artist.setText(mural.getArtist());
-        address.findViewById(R.id.AddressText);
+        address = findViewById(R.id.AddressText);
         address.setText(mural.getAddress());
 
         expandableView = findViewById(R.id.expandableView);
-        arrowBttn = findViewById(R.id.ArrowBttn);
-        cardview = findViewById(R.id.DescriptionCardview);
+        arrowBttn = findViewById(R.id.arrowBttn);
+        cardview = findViewById(R.id.CardView);
+
         description = findViewById(R.id.DescriptionText);
         description.setText(mural.getDescription());
+
+
+        description.setMovementMethod(new ScrollingMovementMethod());
 
         arrowBttn.setOnClickListener(new View.OnClickListener()
         {
@@ -76,11 +87,14 @@ public class DetailActivity extends AppCompatActivity
                     TransitionManager.beginDelayedTransition(cardview, new AutoTransition());
                     expandableView.setVisibility(View.VISIBLE);
                     arrowBttn.setBackgroundResource(R.drawable.ic_keyboard_arrow_up_black_24dp);
+                } else
+                {
+                    TransitionManager.beginDelayedTransition(cardview, new AutoTransition());
+                    expandableView.setVisibility(View.GONE);
+                    arrowBttn.setBackgroundResource(R.drawable.ic_keyboard_arrow_down_black_24dp);
                 }
             }
         });
-
-
 
 
 //        private String description;
