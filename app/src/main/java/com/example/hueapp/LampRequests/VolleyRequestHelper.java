@@ -63,7 +63,7 @@ public class VolleyRequestHelper {
                             for(int i = 0 ; i < lights.length(); i++){
                                 
                             }
-                            getLights();
+                            //getLights();
 
                         } catch (JSONException e) {
                             e.printStackTrace();
