@@ -97,8 +97,6 @@ public class DetailActivity extends AppCompatActivity
         });
 
 
-//        private String description;
-//        private double rating;
 
     }
 }
