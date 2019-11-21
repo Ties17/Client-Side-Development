@@ -2,7 +2,7 @@ package com.example.hueapp;
 
 public class HueLamp {
     private int id;
-    private boolean on;
+    private boolean isOn;
     private int brightness;
     private int hue;
     private int saturation;
@@ -14,8 +14,8 @@ public class HueLamp {
     public HueLamp() {
     }
 
-    public HueLamp(boolean on, int brightness, int hue, int saturation, boolean isColorLooping) {
-        this.on = on;
+    public HueLamp(boolean isOn, int brightness, int hue, int saturation, boolean isColorLooping) {
+        this.isOn = isOn;
         this.brightness = brightness;
         this.hue = hue;
         this.saturation = saturation;
@@ -31,11 +31,11 @@ public class HueLamp {
     }
 
     public boolean isOn() {
-        return on;
+        return isOn;
     }
 
     public void setOn(boolean on) {
-        this.on = on;
+        this.isOn = on;
     }
 
     public int getBrightness() {
