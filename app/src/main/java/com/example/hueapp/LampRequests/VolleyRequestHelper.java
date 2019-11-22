@@ -48,7 +48,7 @@ public class VolleyRequestHelper {
                     new Response.Listener<JSONArray>() {
                         @Override
                         public void onResponse(JSONArray response) {
-
+                        //TODO CHECK IF THE RESPONSE WENT TROUGHT CORRECTLY
                         }
                     },
                     new Response.ErrorListener() {
@@ -63,8 +63,112 @@ public class VolleyRequestHelper {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
 
+    public void setBrightness(String lampId, int brightness){
+        if (brightness >= 1 && brightness <=254){
+            try{
+                HueJsonObjectRequest hueRequest = new HueJsonObjectRequest(Request.Method.PUT,
+                        baseURL + "/lights/" + lampId + "/state",
+                        new JSONObject(" { 'bri': " + brightness + "}"),
+                        new Response.Listener<JSONArray>() {
+                            @Override
+                            public void onResponse(JSONArray response) {
+                                //TODO CHECK IF THE RESPONSE WENT TROUGHT CORRECTLY
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
 
+                            }
+                        });
+
+                queue.add(hueRequest);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void setHue(String lampId, int hue){
+        if (hue >= 0 && hue <= 65535){
+            try{
+                HueJsonObjectRequest hueRequest = new HueJsonObjectRequest(Request.Method.PUT,
+                        baseURL + "/lights/" + lampId + "/state",
+                        new JSONObject(" { 'hue': " + hue + "}"),
+                        new Response.Listener<JSONArray>() {
+                            @Override
+                            public void onResponse(JSONArray response) {
+                                //TODO CHECK IF THE RESPONSE WENT TROUGHT CORRECTLY
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+
+                            }
+                        });
+
+                queue.add(hueRequest);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void setSaturation(String lampId, int saturation){
+        if (saturation >= 0 && saturation <=254){
+            try{
+                HueJsonObjectRequest hueRequest = new HueJsonObjectRequest(Request.Method.PUT,
+                        baseURL + "/lights/" + lampId + "/state",
+                        new JSONObject(" { 'sat': " + saturation + "}"),
+                        new Response.Listener<JSONArray>() {
+                            @Override
+                            public void onResponse(JSONArray response) {
+                                //TODO CHECK IF THE RESPONSE WENT TROUGHT CORRECTLY
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+
+                            }
+                        });
+
+                queue.add(hueRequest);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void setBHS(String lampId, int brightness, int hue, int saturation){
+        if(brightness >= 1 && brightness <=254 && hue >= 0 && hue <= 65535 && saturation >= 0 && saturation <=254){
+            try{
+                HueJsonObjectRequest hueRequest = new HueJsonObjectRequest(Request.Method.PUT,
+                        baseURL + "/lights/" + lampId + "/state",
+                        new JSONObject("{ 'bri': " + brightness + "," +
+                                "'hue': " + hue + "," +
+                                "'sat': " + saturation + "}"),
+                        new Response.Listener<JSONArray>() {
+                            @Override
+                            public void onResponse(JSONArray response) {
+                                //TODO CHECK IF THE RESPONSE WENT TROUGHT CORRECTLY
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+
+                            }
+                        });
+
+                queue.add(hueRequest);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public void getLights(final String[] lightNames){
