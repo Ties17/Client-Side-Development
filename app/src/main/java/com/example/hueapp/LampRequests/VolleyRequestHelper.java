@@ -25,12 +25,13 @@ public class VolleyRequestHelper {
     private String requestResponse;
     private RequestQueue queue;
     private HueResponsesHandler responsesHandler;
-    private String baseURL = "192.168.1.179/api";
+    private String baseURL = "http://192.168.1.179/api";
 
     private VolleyRequestHelper(Context context, Token token, HueResponsesHandler responsesHandler){
         this.context = context;
         baseURL += "/" + token.getToken();
         queue = Volley.newRequestQueue(context);
+        this.responsesHandler = responsesHandler;
     }
 
     public static VolleyRequestHelper getInstance(Context context, Token token, HueResponsesHandler responsesHandler){
@@ -190,7 +191,7 @@ public class VolleyRequestHelper {
                                     String effect = light.getJSONObject("state").getString("effect");
                                     boolean isColorLooping = false;
                                     if(effect.equals("colorloop")) isColorLooping = true;
-                                    HueLamp lamp = new HueLamp(isOn, brightness, hue, saturation, isColorLooping);
+                                    HueLamp lamp = new HueLamp(lightName, isOn, brightness, hue, saturation, isColorLooping);
                                     lamps.add(lamp);
                                 }
 
@@ -212,7 +213,7 @@ public class VolleyRequestHelper {
 
     public void getGroup(){
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET,
-                baseURL + "/group/4",
+                baseURL + "/groups/4",
                 null,
                 new Response.Listener<JSONObject>() {
                     @Override

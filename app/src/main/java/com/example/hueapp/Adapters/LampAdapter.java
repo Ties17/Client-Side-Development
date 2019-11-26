@@ -18,6 +18,8 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.hueapp.HueLamp;
+import com.example.hueapp.LampRequests.HueResponsesHandler;
+import com.example.hueapp.LampRequests.VolleyRequestHelper;
 import com.example.hueapp.R;
 
 import java.lang.reflect.Array;
@@ -26,18 +28,20 @@ import java.util.ArrayList;
 public class LampAdapter extends RecyclerView.Adapter<LampAdapter.ImageViewHolder>
 {
     ArrayList<HueLamp> dataset = new ArrayList<>();
+    VolleyRequestHelper requestHelper;
 
-    public LampAdapter(ArrayList<HueLamp> dateset)
+    public LampAdapter(ArrayList<HueLamp> dateset, VolleyRequestHelper requestHelper)
     {
         this.dataset = dateset;
+        this.requestHelper = requestHelper;
     }
 
     @NonNull
     @Override
-    public ImageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
+    public ImageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i)
     {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_layout, parent, false);
-        ImageViewHolder imageViewHolder = new ImageViewHolder(view);
+        ImageViewHolder imageViewHolder = new ImageViewHolder(view, dataset.get(i));
 
         return imageViewHolder;
     }
@@ -57,7 +61,7 @@ public class LampAdapter extends RecyclerView.Adapter<LampAdapter.ImageViewHolde
 
     public class ImageViewHolder extends RecyclerView.ViewHolder
     {
-
+        HueLamp lamp;
         Button arrowBttn;
         View lampColor;
         SeekBar HueBar;
@@ -70,10 +74,10 @@ public class LampAdapter extends RecyclerView.Adapter<LampAdapter.ImageViewHolde
         CardView cardview;
 
 
-        public ImageViewHolder(View view)
+        public ImageViewHolder(View view, final HueLamp lamp)
         {
             super(view);
-
+            this.lamp = lamp;
             arrowBttn = view.findViewById(R.id.arrowBttn);
             lampColor = view.findViewById(R.id.lampColor);
             HueBar = view.findViewById(R.id.HBar);
@@ -124,6 +128,8 @@ public class LampAdapter extends RecyclerView.Adapter<LampAdapter.ImageViewHolde
                 @Override
                 public void onStopTrackingTouch(SeekBar seekBar)
                 {
+                    //TODO FIX LAMP ID
+                    requestHelper.setBrightness(lamp.getId(), (HueBar.getProgress()/360)*65535);
                 }
             });
 
@@ -146,7 +152,8 @@ public class LampAdapter extends RecyclerView.Adapter<LampAdapter.ImageViewHolde
                 @Override
                 public void onStopTrackingTouch(SeekBar seekBar)
                 {
-
+                    //TODO FIX LAMP ID
+                    requestHelper.setBrightness(lamp.getId(), SatBar.getProgress());
                 }
             });
 
@@ -169,7 +176,8 @@ public class LampAdapter extends RecyclerView.Adapter<LampAdapter.ImageViewHolde
                 @Override
                 public void onStopTrackingTouch(SeekBar seekBar)
                 {
-
+                    //TODO FIX LAMP ID
+                    requestHelper.setBrightness(lamp.getId(), BriBar.getProgress());
                 }
             });
         }

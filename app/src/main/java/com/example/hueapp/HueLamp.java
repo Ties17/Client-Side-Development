@@ -1,7 +1,7 @@
 package com.example.hueapp;
 
 public class HueLamp {
-    private int id;
+    private String id;
     private boolean isOn;
     private int brightness;
     private int hue;
@@ -14,7 +14,8 @@ public class HueLamp {
     public HueLamp() {
     }
 
-    public HueLamp(boolean isOn, int brightness, int hue, int saturation, boolean isColorLooping) {
+    public HueLamp(String id, boolean isOn, int brightness, int hue, int saturation, boolean isColorLooping) {
+        this.id = id;
         this.isOn = isOn;
         this.brightness = brightness;
         this.hue = hue;
@@ -22,12 +23,12 @@ public class HueLamp {
         this.isColorLooping = isColorLooping;
     }
 
-    public int getId() {
-        return id;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public String getId() {
+        return id;
     }
 
     public boolean isOn() {
