@@ -8,8 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.SeekBar;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -61,6 +63,7 @@ public class LampAdapter extends RecyclerView.Adapter<LampAdapter.ImageViewHolde
         holder.HueBar.setProgress((int)hsb2[0]);
         holder.SatBar.setProgress((int)hsb2[1]);
         holder.BriBar.setProgress((int)hsb2[2]);
+        holder.OnSwitch.setChecked(holder.lamp.isOn());
     }
 
     @Override
@@ -83,6 +86,7 @@ public class LampAdapter extends RecyclerView.Adapter<LampAdapter.ImageViewHolde
         TextView lampIdText;
         ConstraintLayout expandableView;
         CardView cardview;
+        Switch OnSwitch;
 
 
         public ImageViewHolder(View view, final HueLamp lamp1)
@@ -100,6 +104,7 @@ public class LampAdapter extends RecyclerView.Adapter<LampAdapter.ImageViewHolde
             expandableView = view.findViewById(R.id.expandableView);
             cardview = view.findViewById(R.id.CardView);
             lampIdText = view.findViewById(R.id.LampIdView);
+            OnSwitch = view.findViewById(R.id.OnSwitch);
 
 
 
@@ -119,6 +124,13 @@ public class LampAdapter extends RecyclerView.Adapter<LampAdapter.ImageViewHolde
                         expandableView.setVisibility(View.GONE);
                         arrowBttn.setBackgroundResource(R.drawable.ic_keyboard_arrow_down_black_24dp);
                     }
+                }
+            });
+
+            OnSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                    requestHelper.putOnStateLight(lamp.getId(), b);
                 }
             });
 
