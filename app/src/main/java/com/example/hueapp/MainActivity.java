@@ -38,8 +38,8 @@ public class MainActivity extends AppCompatActivity implements HueResponsesHandl
         recyclerView.setLayoutManager(layoutManager);
 
         this.dataset = new ArrayList<>();
-        dataset.add(new HueLamp("1", true, 100, 0, 0, false));
-        dataset.add(new HueLamp("2", true, 100, 0, 0, false));
+        //dataset.add(new HueLamp("1", true, 100, 0, 0, false));
+        //dataset.add(new HueLamp("2", true, 100, 0, 0, false));
 
 
         adapter = new LampAdapter(dataset, helper);
