@@ -1,70 +1,46 @@
 package com.example.hueapp;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.os.Bundle;
 
-import com.example.hueapp.Adapters.LampAdapter;
-import com.example.hueapp.LampRequests.HueResponsesHandler;
-import com.example.hueapp.LampRequests.Token;
-import com.example.hueapp.LampRequests.VolleyRequestHelper;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
 
-import java.util.ArrayList;
+import com.example.hueapp.Adapters.SectionsPageAdapter;
+import com.example.hueapp.Fragments.AllLampsFragment;
+import com.example.hueapp.Fragments.IndividualLampsFragment;
+import com.google.android.material.tabs.TabLayout;
 
-public class MainActivity extends AppCompatActivity implements HueResponsesHandler {
 
-    private String TiesToken = "SpmILZFwnQhpVsCcUNWO0c5ObXXucxIHKzjNh5Lo";
-    private String KirstenToken = "cRBAiU0YfOyx6dxOelEgngMYNVzyOw6yAJumocx1";
+public class MainActivity extends AppCompatActivity {
 
-    private RecyclerView recyclerView;
-    private LampAdapter adapter;
-    private RecyclerView.LayoutManager layoutManager;
-    private ArrayList<HueLamp> dataset;
-    private VolleyRequestHelper helper;
+    private static final String TAG = "MainActivity";
+
+    private SectionsPageAdapter sectionsPageAdapter;
+
+    ViewPager viewPager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-         helper = VolleyRequestHelper.getInstance(this, new Token(TiesToken), this);
+        this.sectionsPageAdapter = new SectionsPageAdapter(getSupportFragmentManager());
 
+        viewPager = findViewById(R.id.view_pager);
+        setupViewPager(viewPager);
 
-        recyclerView = findViewById(R.id.reyclerview);
-
-        layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
-
-        this.dataset = new ArrayList<>();
-        //dataset.add(new HueLamp("1", true, 100, 0, 0, false));
-        //dataset.add(new HueLamp("2", true, 100, 0, 0, false));
-
-
-        adapter = new LampAdapter(dataset, helper);
-
-        recyclerView.setAdapter(adapter);
-
-        helper.getGroup();
+        TabLayout tabLayout = findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(viewPager);
 
     }
 
-
-    @Override
-    public void lightInfoReceived(ArrayList<HueLamp> lamps) {
-        this.dataset.clear();
-
-        for(HueLamp lamp : lamps){
-            this.dataset.add(lamp);
-            adapter.notifyDataSetChanged();
-        }
-
-//        adapter.notifyDataSetChanged();
+    private void setupViewPager(ViewPager viewPager)
+    {
+        SectionsPageAdapter adapter = new SectionsPageAdapter(getSupportFragmentManager());
+        adapter.addFrament(new IndividualLampsFragment(), "INDIVIDUAL");
+        adapter.addFrament(new AllLampsFragment(), "ALL");
+        viewPager.setAdapter(adapter);
     }
 
-    @Override
-    public void OnError() {
-
-    }
 }

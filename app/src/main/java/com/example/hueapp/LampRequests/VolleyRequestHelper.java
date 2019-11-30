@@ -9,6 +9,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.hueapp.Adapters.SectionsPageAdapter;
 import com.example.hueapp.HueLamp;
 
 import org.json.JSONArray;
@@ -144,7 +145,7 @@ public class VolleyRequestHelper {
         }
     }
 
-    public void setBHS(String lampId, int brightness, int hue, int saturation){
+    public void setHSB(String lampId, int hue,  int saturation, int brightness){
         if(brightness >= 1 && brightness <=254 && hue >= 0 && hue <= 65535 && saturation >= 0 && saturation <=254){
             try{
                 HueJsonObjectRequest hueRequest = new HueJsonObjectRequest(Request.Method.PUT,

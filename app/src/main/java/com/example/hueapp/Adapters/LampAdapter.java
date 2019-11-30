@@ -56,13 +56,18 @@ public class LampAdapter extends RecyclerView.Adapter<LampAdapter.ImageViewHolde
         holder.lamp = dataset.get(position);
         holder.lampIdText.setText("Lamp id: " + holder.lamp.getId());
 
-
-        float hue = (holder.lamp.getHue()/65535f) * 360;
+        float hue = (holder.lamp.getHue()/65535f) * 360f;
         float[] hsb2 = {hue, holder.lamp.getSaturation(), holder.lamp.getBrightness()};
         holder.lampColor.setBackgroundColor(Color.HSVToColor(hsb2));
+
         holder.HueBar.setProgress((int)hsb2[0]);
         holder.SatBar.setProgress((int)hsb2[1]);
         holder.BriBar.setProgress((int)hsb2[2]);
+
+        holder.HueText.setText(String.valueOf((int)hsb2[0]));
+        holder.SatText.setText(String.valueOf((int)hsb2[1]));
+        holder.BriText.setText(String.valueOf((int)hsb2[2]));
+
         holder.OnSwitch.setChecked(holder.lamp.isOn());
     }
 

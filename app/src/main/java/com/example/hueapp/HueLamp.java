@@ -14,7 +14,7 @@ public class HueLamp {
     public HueLamp() {
     }
 
-    public HueLamp(String id, boolean isOn, int brightness, int hue, int saturation, boolean isColorLooping) {
+    public HueLamp(String id, boolean isOn,  int hue, int saturation,int brightness, boolean isColorLooping) {
         this.id = id;
         this.isOn = isOn;
         this.brightness = brightness;
