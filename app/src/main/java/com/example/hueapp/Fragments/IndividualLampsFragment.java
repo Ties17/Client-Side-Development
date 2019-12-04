@@ -53,14 +53,6 @@ public class IndividualLampsFragment extends Fragment implements HueResponsesHan
         recyclerView.setLayoutManager(layoutManager);
 
         this.dataset = new ArrayList<>();
-        dataset.add(new HueLamp("1", true, 50, 100, 69, false));
-        dataset.add(new HueLamp("2", true, 200, 69, 210, false));
-        dataset.add(new HueLamp("3", true, 200, 69, 210, false));
-        dataset.add(new HueLamp("4", true, 200, 69, 210, false));
-        dataset.add(new HueLamp("5", true, 200, 69, 210, false));
-        dataset.add(new HueLamp("6", true, 200, 69, 210, false));
-        dataset.add(new HueLamp("7", true, 200, 69, 210, false));
-
 
 
         adapter = new LampAdapter(dataset, requestHelper);

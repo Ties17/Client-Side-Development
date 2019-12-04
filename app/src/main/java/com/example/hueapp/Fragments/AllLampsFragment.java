@@ -1,9 +1,11 @@
 package com.example.hueapp.Fragments;
 
+import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
+import androidx.core.graphics.ColorUtils;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -33,9 +35,9 @@ public class AllLampsFragment extends Fragment implements HueResponsesHandler {
     private String TiesToken = "SpmILZFwnQhpVsCcUNWO0c5ObXXucxIHKzjNh5Lo";
     private String KirstenToken = "cRBAiU0YfOyx6dxOelEgngMYNVzyOw6yAJumocx1";
 
-    private int hue = 0;
-    private int sat = 0;
-    private int bri = 0;
+    public float hue = 0;
+    public float sat = 0;
+    public float bri = 0;
 
     private boolean state = true;
 
@@ -55,6 +57,17 @@ public class AllLampsFragment extends Fragment implements HueResponsesHandler {
             @Override
             public void onColorSelected(int color) {
                 imageView.getBackground().setColorFilter(color, PorterDuff.Mode.MULTIPLY);
+                final String hexColor = String.format("#%06X", (0xFFFFFF & color));
+                float[] hvs = new float[3];
+
+ColorUtils.colorToHSL(color,hvs);
+                System.out.println(hvs[0]);
+                System.out.println(hvs[1]);
+                System.out.println(hvs[2]);
+
+                hue = hvs[0];
+                sat = hvs[1];
+                bri = hvs[2];
                 //TODO set hue bri sat so requestHelper.setHSB() request works.
             }
         });
@@ -84,7 +97,9 @@ public class AllLampsFragment extends Fragment implements HueResponsesHandler {
     {
         for(HueLamp l : lamps)
         {
-            requestHelper.setHSB(l.getId(), hue, bri, sat);
+            System.out.println( hue + " "+sat +" "+ bri);
+            System.out.println( hue*182 +" "+ sat *255 + " "+bri*255);
+            requestHelper.setHSB(l.getId(), (int) (hue * 128), (int) (sat*255),(int)(bri*255));
             requestHelper.putOnStateLight(l.getId(), state);
         }
 

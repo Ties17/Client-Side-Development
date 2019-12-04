@@ -38,6 +38,8 @@ public class VolleyRequestHelper {
     public static VolleyRequestHelper getInstance(Context context, Token token, HueResponsesHandler responsesHandler){
         if(sInstantce == null){
             sInstantce = new VolleyRequestHelper(context, token, responsesHandler);
+        } else {
+            sInstantce.responsesHandler = responsesHandler;
         }
         return sInstantce;
     }
@@ -184,7 +186,6 @@ public class VolleyRequestHelper {
                             ArrayList<HueLamp> lamps = new ArrayList<>();
                                 for(String lightName : lightNames) {
                                     JSONObject light = response.getJSONObject(lightName);
-
                                     boolean isOn = light.getJSONObject("state").getBoolean("on");
                                     int brightness = light.getJSONObject("state").getInt("bri");
                                     int hue = light.getJSONObject("state").getInt("hue");
@@ -192,7 +193,7 @@ public class VolleyRequestHelper {
                                     String effect = light.getJSONObject("state").getString("effect");
                                     boolean isColorLooping = false;
                                     if(effect.equals("colorloop")) isColorLooping = true;
-                                    HueLamp lamp = new HueLamp(lightName, isOn, brightness, hue, saturation, isColorLooping);
+                                    HueLamp lamp = new HueLamp(lightName, isOn, hue, saturation, brightness, isColorLooping);
                                     lamps.add(lamp);
                                 }
 
