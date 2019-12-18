@@ -7,6 +7,20 @@
     android:layout_height="match_parent"
     tools:context=".Fragments.AllLampsFragment">
 
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="8dp"
+        android:text="Color looping the lamps:"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
     <com.madrapps.pikolo.HSLColorPicker
         android:id="@+id/colorPicker"
         android:layout_width="300dp"
@@ -81,8 +95,19 @@
         android:id="@+id/switchAll"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:checked="true"
         app:layout_constraintEnd_toEndOf="@+id/selectBtn"
         app:layout_constraintStart_toStartOf="@+id/selectBtn"
-        app:layout_constraintTop_toTopOf="@+id/textView" />
+        app:layout_constraintTop_toTopOf="@+id/textView"
+        tools:checked="true" />
+
+    <Switch
+        android:id="@+id/colorloopSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/textView6"
+        app:layout_constraintEnd_toEndOf="@+id/switchAll"
+        app:layout_constraintStart_toStartOf="@+id/switchAll"
+        app:layout_constraintTop_toTopOf="@+id/textView6" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

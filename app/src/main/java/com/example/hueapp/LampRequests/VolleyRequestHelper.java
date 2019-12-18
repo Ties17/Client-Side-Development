@@ -69,6 +69,33 @@ public class VolleyRequestHelper {
         }
     }
 
+    public void setColorLoop(String lampId, boolean loop)
+    {
+
+        try{
+            HueJsonObjectRequest hueRequest = new HueJsonObjectRequest(Request.Method.PUT,
+                    baseURL + "/lights/" + lampId + "/state",
+                    new JSONObject("{ 'effect': " + (loop ? "colorloop" : "none") + "}"),
+                    new Response.Listener<JSONArray>() {
+                        @Override
+                        public void onResponse(JSONArray response) {
+                            //TODO CHECK IF THE RESPONSE WENT TROUGHT CORRECTLY
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+
+                        }
+                    }
+            );
+
+            queue.add(hueRequest);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+    
     public void setBrightness(String lampId, int brightness){
         if (brightness >= 1 && brightness <=254){
             try{

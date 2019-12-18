@@ -36,8 +36,13 @@ public class IndividualLampsFragment extends Fragment implements HueResponsesHan
     private LampAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     private ArrayList<HueLamp> dataset;
+    private HueResponsesHandler responsesHandler = this;
 
     SwipeRefreshLayout refreshLayout;
+
+    public IndividualLampsFragment(){
+
+    }
 
     @Nullable
     @Override
@@ -54,18 +59,17 @@ public class IndividualLampsFragment extends Fragment implements HueResponsesHan
 
         this.dataset = new ArrayList<>();
 
-
         adapter = new LampAdapter(dataset, requestHelper);
 
         recyclerView.setAdapter(adapter);
 
-        requestHelper.getGroup();
 
         refreshLayout = view.findViewById(R.id.refresh);
 
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                requestHelper = VolleyRequestHelper.getInstance(getActivity(), new Token(TiesToken), responsesHandler );
                 requestHelper.getGroup();
 
                 new Handler().postDelayed(new Runnable() {
@@ -76,6 +80,8 @@ public class IndividualLampsFragment extends Fragment implements HueResponsesHan
                 }, 1000);
             }
         });
+
+        requestHelper.getGroup();
 
         return view;
     }

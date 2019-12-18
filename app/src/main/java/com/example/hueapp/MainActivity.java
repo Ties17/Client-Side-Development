@@ -38,8 +38,8 @@ public class MainActivity extends AppCompatActivity {
     private void setupViewPager(ViewPager viewPager)
     {
         SectionsPageAdapter adapter = new SectionsPageAdapter(getSupportFragmentManager());
-        adapter.addFrament(new IndividualLampsFragment(), "INDIVIDUAL");
         adapter.addFrament(new AllLampsFragment(), "ALL");
+        adapter.addFrament(new IndividualLampsFragment(), "INDIVIDUAL");
         viewPager.setAdapter(adapter);
     }
 
